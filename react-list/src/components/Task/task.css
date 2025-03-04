@@ -1,0 +1,22 @@
+.task-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+  margin-top: 1rem;
+  padding: 0 2rem 1rem 1rem;
+  border-bottom: 5px solid #121212;
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-4px);
+    border-color: #e2e2e2;
+    color: #ffffff;
+  }
+}
+.task-list .task-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(15%, 190px);
+  cursor: pointer;
+}

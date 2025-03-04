@@ -1,0 +1,48 @@
+.main__form {
+  position: sticky;
+  top: -1px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  width: min(800px, 88vw);
+  height: 150px;
+  padding: 5px 15px;
+  margin-top: 10px;
+  background-color: #121212;
+  color: aliceblue;
+  border-radius: 4px;
+  box-shadow: 5px 5px 10px #0000006e;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  z-index: 10;
+}
+.main__form input {
+  width: 70%;
+  min-height: 30px;
+  border-radius: 4px;
+}
+
+.form__add-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+}
+.form__add-list button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 4px;
+  width: min(15%, 120px);
+  margin: 0 10px;
+  min-height: 30px;
+  color: #121212;
+  transition: linear 0.3s ease-in;
+  &:hover {
+    background-color: #e2e2e2;
+    transform: translate(-1px, -1px);
+    border: 2px solid white;
+    box-shadow: 2px 2px 10px rgba(255, 255, 255, 0.4);
+  }
+}
