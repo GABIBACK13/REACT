@@ -1,0 +1,23 @@
+.redirect {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: min(800px, 70vw);
+  height: min(300px, 50vh);
+  margin-top: 2rem;
+  padding: 10px;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  color: rgb(217, 217, 217);
+  background-color: rgb(92, 5, 5);
+  border-radius: 8px;
+  box-shadow: inset 0px 0px 10px #121212;
+}
+.redirect__time {
+  padding: 10px;
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+  font-weight: bolder;
+}

@@ -1,0 +1,14 @@
+.flick {
+  animation: Flick 1s reverse 0s 7;
+}
+
+@keyframes Flick {
+  from {
+    color: white;
+    text-shadow: none;
+  }
+  to {
+    color: red;
+    text-shadow: -1px -1px 1px red;
+  }
+}

@@ -1,0 +1,33 @@
+.article {
+  width: min(800px, 97vw);
+  margin: auto;
+  padding: 20px;
+  background-color: #e5e5e5;
+}
+.article__title {
+  font-size: 2rem;
+  text-indent: 2rem;
+  margin-bottom: 20px;
+  border-bottom: 2px solid brown;
+}
+.article h2 {
+  text-indent: 1rem;
+  padding: 10px;
+  color: rgb(108, 0, 0);
+}
+.article .text {
+  line-height: 1.6rem;
+}
+.article__references {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: min(50px, 4%);
+  padding: 10px;
+}
+.article__creator {
+  color: rgb(137, 0, 0);
+}
+.article__date {
+  font-size: 0.9rem;
+}

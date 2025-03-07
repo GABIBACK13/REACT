@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 
-import "./app.css";
+import Login from "../pages/Login";
+
+import { Main } from "./styled-app";
 
 export default function App() {
-  
   return (
-    <div className="App">
-      <h1>Hello, World!</h1>
-    </div>
+    <Main>
+      <Login />
+    </Main>
   );
 }
