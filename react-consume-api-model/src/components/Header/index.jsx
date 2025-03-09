@@ -11,8 +11,8 @@ export default function Header() {
   const state = useRecoilValue(BtnClicked);
 
   return (
-    <HeaderContent colors={colors}>
-      <Title colors={colors}>Gabi {`${state}`}</Title>
+    <HeaderContent $colors={colors}>
+      <Title $colors={colors}>Gabi {`${state}`}</Title>
       <Navigation />
     </HeaderContent>
   );

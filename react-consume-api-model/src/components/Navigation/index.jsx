@@ -7,14 +7,14 @@ import { Nav, NavList, NavItem} from './styled-navigation.js';
 export default function Navigation() {
   return (
     <Nav>
-      <NavList colors={colors}>
-        <NavItem colors={colors}>
+      <NavList $colors={colors}>
+        <NavItem $colors={colors}>
           <Link to="/login">
             <FaUser size={24} color={colors.base}/>
           </Link>
         </NavItem >
 
-        <NavItem colors={colors}>
+        <NavItem $colors={colors}>
           <Link to="/">
             <FaHome size={24} color={colors.base}/>
           </Link>

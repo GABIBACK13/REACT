@@ -12,8 +12,8 @@ export const NavList = styled.ul`
   margin-right: min(5vw, 100px);
   padding: 1rem;
   list-style: none;
-  background-color: ${({ colors }) => colors.primary};
-  color: ${({ colors }) => colors.base};
+  background-color: ${({ $colors }) => $colors.primary};
+  color: ${({ $colors }) => $colors.base};
 `;
 
 export const NavItem = styled.li`

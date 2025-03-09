@@ -9,11 +9,11 @@ export const HeaderContent = styled.header`
   justify-content: space-between;
   width: 100%;
   padding: 1rem;
-  background-color: ${({colors}) => colors.primary};
-  box-shadow: 0 0 1rem ${({ colors }) => colors.shadow};
-  `;
+  background-color: ${({ $colors }) => $colors.primary};
+  box-shadow: 0 0 1rem ${({ $colors }) => $colors.shadow};
+`;
 
-  export const Title = styled.h1`
+export const Title = styled.h1`
   font-size: 1.5rem;
-  color: ${({colors}) => colors.base};
-  `;
+  color: ${({ $colors }) => $colors.base};
+`;
