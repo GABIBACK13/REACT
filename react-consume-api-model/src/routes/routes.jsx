@@ -4,20 +4,46 @@ import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute.jsx";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Register from "../pages/Register";
+import Students from "../pages/Students";
+import Student from "../pages/Student";
+import Pictures from "../pages/Pictures";
 import NotFound from "../pages/NotFound";
 
 export default function MyRoutes() {
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/students" element={<Students />} />
+
       <Route
-        path="/"
+        path="/student/:id"
         element={
-          <PrivateRoute isClosed={true}>
-            <Home />
+          <PrivateRoute isClosed>
+            <Student />
           </PrivateRoute>
         }
       />
-      <Route path="/login" element={<Login />} />
+      <Route
+        path="/student/"
+        element={
+          <PrivateRoute isClosed>
+            <Student />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/pictures/:id"
+        element={
+          <PrivateRoute isClosed>
+            <Pictures />
+          </PrivateRoute>
+        }
+      />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

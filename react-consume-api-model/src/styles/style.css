@@ -19,6 +19,7 @@ html,
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 a {
   text-decoration: none;
@@ -27,6 +28,7 @@ a {
 
 button {
   cursor: pointer;
+  min-height: 60px;
   padding: 0.5rem 1rem;
   margin: 1rem 0;
   border-radius: 4px;
@@ -43,6 +45,10 @@ button {
   }
 }
 
+.FaBorder {
+  border: 1px solid #131313;
+  border-right: 4px solid #111111;
+}
 .container {
   width: min(100%, 800px);
   margin: 0 auto;

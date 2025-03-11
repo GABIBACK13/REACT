@@ -1,2 +1,2 @@
-export const BTN_CLICKED = 'BTN_CLICKED';
-export const GET_ALUNOS = 'ALUNOS';
+export const AUTH = "authState";
+export const AUTH_SELECTOR = "authSelector";
