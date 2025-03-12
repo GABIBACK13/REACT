@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import "./styles/style.css";
+import "./styles/loading.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import MyRoutes from "./routes/routes";
@@ -16,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <RecoilProvider>
         <Header />
         <MyRoutes />
-        <ToastContainer autoClose={4000} className={"toast-container"} />
+        <ToastContainer autoClose={3000} className={"toast-container"} />
       </RecoilProvider>
     </BrowserRouter>
   </React.StrictMode>

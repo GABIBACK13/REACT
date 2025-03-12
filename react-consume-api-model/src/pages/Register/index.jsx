@@ -1,65 +1,71 @@
-import React, { useState } from "react";
-import isEmail from "validator/lib/isEmail.js";
-import { isAlphanumeric } from "validator";
-import { toast } from "react-toastify";
-import axios from "../../services/axios";
+import React, { useEffect, useState } from "react";
+import { setUser } from "../../store/Users";
+import validateUser from "../../functions/validateUser.js";
 
 import { Form } from "../../styles/styled.js";
+import Loading from "../../components/Loading";
+import { useRecoilState } from "recoil";
+import { authState } from "../../store/Auth/atoms";
 import { get } from "lodash";
 import { useNavigate } from "react-router-dom";
+import axios from "../../services/axios/index.js";
 
 export default function Register() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [auth, setAuth] = useRecoilState(authState);
   const navigate = useNavigate();
+  const id = get(auth, "user.id", false);
+  const emailStored = get(auth, "user.email", "");
+  const nameStored = get(auth, "user.nome", "");
+
+  useEffect(() => {
+    if (id) {
+      setEmail(emailStored);
+      setNome(nameStored);
+    }
+  }, [id, emailStored, nameStored, setEmail, setNome]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let errors = false;
 
-    if (!nome || nome.length < 3 || nome.length > 255) {
-      toast.error("name's length must be between 3 and 255 characters");
-      errors = true;
-    }
-
-    if (!isEmail(email)) {
-      toast.error("email must be a valid email");
-      errors = true;
-    }
-
-    if (!password || password.length < 7 || password.length > 50) {
-      toast.error("password's length must be between 7 and 50 characters");
-      errors = true;
-    }
-    if (!isAlphanumeric(password)) {
-      toast.error("Password must contain only numbers and letters");
-      errors = true;
-    }
-
+    let errors = validateUser(nome, email, password, id);
     if (errors) return;
-    try {
-      const Response = await axios.post("/users", {
-        nome,
-        email,
-        password,
+
+    setLoading(true);
+
+    let payload = {};
+    if (nome) payload["nome"] = nome;
+    if (email) payload["email"] = email;
+    if (password) payload["password"] = password;
+
+    if (id) {
+      await setUser("put", payload, setLoading, navigate);
+      setAuth({
+        isAuthenticated: false,
+        token: null,
+        user: {},
       });
-      toast.success(`${nome} added successfully!`);
-      navigate("/login");
-    } catch (error) {
-      const errors = get(error, "response.data.errors", []);
-      errors.map((err) => toast.error(err));
+      delete axios.defaults.headers.Authorization;
+      return;
     }
+    await setUser("post", { nome, email, password }, setLoading, navigate);
+    setLoading(false);
   };
 
   return (
     <div className="container">
-      <h1>Register</h1>
-      <p>Register an Employ/Teacher.</p>
+      <Loading isLoading={loading} />
+
+      <h1>{id ? "Edit your data" : "Register"}</h1>
+      <p>{id ? `Logged as ${emailStored}` : "Register an Employ/Teacher"}.</p>
       <Form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="nome">
           Name:
           <input
-            type="nome"
+            type="text"
             autoComplete="name"
             name="nome"
             id="nome"
@@ -68,7 +74,7 @@ export default function Register() {
             maxLength={255}
             value={nome}
             onChange={(e) => setNome(e.target.value)}
-            required
+            aria-label="Full Name"
           />
         </label>
 
@@ -82,7 +88,7 @@ export default function Register() {
             placeholder="exemple@ex.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+            aria-label="Email"
           />
         </label>
 
@@ -98,7 +104,7 @@ export default function Register() {
             maxLength={50}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
+            aria-label="Password"
           />
         </label>
 

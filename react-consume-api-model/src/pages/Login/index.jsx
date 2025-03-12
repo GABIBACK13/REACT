@@ -8,31 +8,30 @@ import colors from "../../config/colors.js";
 import { Form } from "../../styles/styled.js";
 import isEmail from "validator/lib/isEmail.js";
 import { toast } from "react-toastify";
-import { useRecoilCallback, useRecoilValue } from "recoil";
+import { useRecoilCallback, useRecoilState } from "recoil";
 import { authState } from "../../store/Auth/atoms";
+import Loading from "../../components/Loading";
 
 export default function Login() {
   const location = useLocation();
   const navigate = useNavigate();
-  let { prevPath, errors } = location.state || [];
+  const { prevPath, errors = [] } = location.state || {};
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const auth = useRecoilValue(authState);
+  const [auth, setAuth] = useRecoilState(authState);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      showErrors(errors);
-      errors = [];
-    }, 350);
-  }, [errors]);
+    if (!auth.isAuthenticated && errors.length) {
+      setTimeout(() => showErrors(errors), 350);
+    }
+  }, [errors, auth.isAuthenticated]);
 
   const setLogin = useRecoilCallback(
     ({ set }) =>
       async () => {
         try {
-          console.log({ email, password });
           const response = await axios.post("/tokens/", { email, password });
-          console.log(response.data);
           set(authState, {
             isAuthenticated: true,
             token: response.data.token,
@@ -41,8 +40,7 @@ export default function Login() {
           toast.success("Login successful");
           axios.defaults.headers.Authorization = `Bearer ${response.data.token}`;
         } catch (error) {
-          console.error(error);
-          toast.error("user or password invalid");
+          toast.error("User or password invalid");
           set(authState, {
             isAuthenticated: false,
             token: null,
@@ -53,12 +51,13 @@ export default function Login() {
     [email, password]
   );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     let errors = false;
     if (!isEmail(email)) {
-      toast.error("email must be a valid email");
+      toast.error("Email must be a valid email");
       errors = true;
     }
     if (!password || password.length < 7 || password.length > 50) {
@@ -66,16 +65,44 @@ export default function Login() {
       errors = true;
     }
 
-    if (errors) return;
-    setLogin();
-    if (!prevPath) navigate("/");
-    navigate(prevPath, { replace: true });
+    if (errors) {
+      setLoading(false);
+      return;
+    }
+
+    await setLogin(); 
+    setLoading(false);
+    navigate(prevPath || "/", { replace: true });
   };
+
+  if (auth.isAuthenticated)
+    return (
+      <div className="container">
+        <Title $colors={colors}>
+          You are logged in as <small>{auth.user.email}</small>
+        </Title>
+        <button
+          className="full-size"
+          onClick={() => {
+            setAuth({
+              isAuthenticated: false,
+              token: null,
+              user: {},
+            });
+            delete axios.defaults.headers.Authorization;
+          }}
+        >
+          Logout
+        </button>
+      </div>
+    );
 
   return (
     <div className="container">
+      <Loading isLoading={loading} />
+
       <Title $colors={colors}>Login Page</Title>
-      <Form onSubmit={(e) => handleSubmit(e)}>
+      <Form onSubmit={handleSubmit}>
         <label htmlFor="email">
           E-mail:
           <input
@@ -106,7 +133,7 @@ export default function Login() {
           />
         </label>
 
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
       </Form>
     </div>
   );

@@ -43,6 +43,10 @@ button {
     border: 1px solid #eee;
     background-color: #ff0000;
   }
+  &.full-size {
+    width: 88%;
+    margin-top: 3rem;
+  }
 }
 
 .FaBorder {
