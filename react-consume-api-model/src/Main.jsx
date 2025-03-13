@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import "./styles/style.css";
 import "./styles/loading.css";
+import "./styles/style.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import MyRoutes from "./routes/routes";

@@ -30,4 +30,28 @@ export const Form = styled.form`
       color: ${colors.intermediate};
     }
   }
+
+  select {
+    width: 88%;
+    padding: 1rem 0.5rem;
+    margin-bottom: calc(1rem + 12px);
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    text-align: center;
+    font: normal 700 1.15rem sans-serif;
+
+    &:focus {
+      border: 2px solid ${colors.primary};
+    }
+    ::placeholder {
+      color: ${colors.intermediate};
+    }
+  }
+
+  option: {
+    background: ${colors.base};
+    color: ${colors.background};
+    border: none;
+  }
 `;

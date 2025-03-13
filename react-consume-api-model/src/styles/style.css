@@ -63,3 +63,14 @@ button {
   background-color: #eee;
   box-shadow: 5px 5px 10px #0000006c;
 }
+.row-display {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 3rem;
+}
+.small {
+  width: min(40%, 350px);
+}
