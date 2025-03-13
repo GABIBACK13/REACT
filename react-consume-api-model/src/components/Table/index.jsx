@@ -21,19 +21,24 @@ import {
 import { Link } from "react-router-dom";
 import colors from "../../config/colors";
 
-export default function StudentsTable({ $aluno }) {
+export default function StudentsTable({ aluno }) {
   const [loading, setLoading] = useState(false);
-  const [students, setStudents] = useState(Array.isArray($aluno) ? $aluno : [$aluno]);
+  const [students, setStudents] = useState(
+    Array.isArray(aluno) ? aluno : [aluno]
+  );
 
   if (!students.length) return <p>No students found.</p>;
 
   const handleDelete = async (id, nome) => {
-    if (!window.confirm(`Are you sure you want to delete ${id}: ${nome}?`)) return;
+    if (!window.confirm(`Are you sure you want to delete ${id}: ${nome}?`))
+      return;
 
     try {
       setLoading(true);
       await axios.delete(`/alunos/${id}`);
-      setStudents((prevStudents) => prevStudents.filter((student) => student.id !== id));
+      setStudents((prevStudents) =>
+        prevStudents.filter((student) => student.id !== id)
+      );
       toast.info(`${nome} deleted successfully`);
     } catch (error) {
       console.error(error);
@@ -69,7 +74,11 @@ export default function StudentsTable({ $aluno }) {
               <Td className="FaBorder">
                 <Link to={`/student/${student.id}`}>
                   {get(student, "Files[0].url", false) ? (
-                    <Img crossOrigin="anonymous" src={student.Files[0].url} alt="profile photo" />
+                    <Img
+                      crossOrigin="anonymous"
+                      src={student.Files[0].url}
+                      alt="profile photo"
+                    />
                   ) : (
                     <FaUserCircle size={36} color={colors.background} />
                   )}
@@ -87,7 +96,10 @@ export default function StudentsTable({ $aluno }) {
               </Td>
               <Td className="td-buttons">
                 <Block>
-                  <div className="delete-ask" onClick={() => handleDelete(student.id, student.nome)}>
+                  <div
+                    className="delete-ask"
+                    onClick={() => handleDelete(student.id, student.nome)}
+                  >
                     <FaWindowClose color={colors.primary} />
                   </div>
                 </Block>

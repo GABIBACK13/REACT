@@ -5,6 +5,9 @@ import Table from "../../components/Table";
 import Loading from "../../components/Loading";
 import { get } from "lodash";
 import { toast } from "react-toastify";
+import { FaPlus } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import colors from "../../config/colors";
 
 export default function Students() {
   const [students, setStudents] = useState([]);
@@ -27,10 +30,19 @@ export default function Students() {
   }, []);
 
   return (
-    <div>
+    <div style={{ display: "flex", alignItems: "center", flexFlow: "column" }}>
       <Loading isLoading={loading} />
 
-      <Table $aluno={students} />
+      <Table aluno={students} key={students.length} />
+      <Link to="/student">
+        <FaPlus
+          color={colors.primary}
+          size={32}
+          style={{ marginTop: "1rem", cursor: "pointer" }}
+          title="ADD STUDENT"
+          aria-label="add student"
+        />
+      </Link>
     </div>
   );
 }

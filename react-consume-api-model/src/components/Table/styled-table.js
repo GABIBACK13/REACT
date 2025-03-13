@@ -54,10 +54,11 @@ export const Td = styled.td`
 `;
 
 export const Caption = styled.caption`
+  text-align: center;
   font-size: 1.5rem;
-  color: ${colors.base};
-  margin-bottom: 0.5rem;
   font-weight: 700;
+  color: ${colors.base};
+  margin: 0.5rem auto;
 `;
 
 export const Block = styled.span`
