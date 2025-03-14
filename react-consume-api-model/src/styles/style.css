@@ -29,6 +29,7 @@ a {
 button {
   cursor: pointer;
   min-height: 60px;
+  min-width: 160px;
   padding: 0.5rem 1rem;
   margin: 1rem 0;
   border-radius: 4px;

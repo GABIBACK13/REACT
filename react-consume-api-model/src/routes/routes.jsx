@@ -8,6 +8,7 @@ import Register from "../pages/Register";
 import Students from "../pages/Students";
 import Student from "../pages/Student";
 import Pictures from "../pages/Pictures";
+import PictureEdit from "../pages/PictureEdit";
 import NotFound from "../pages/NotFound";
 
 export default function MyRoutes() {
@@ -23,6 +24,22 @@ export default function MyRoutes() {
         element={
           <PrivateRoute isClosed>
             <Student />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/student/view/:id"
+        element={
+          <PrivateRoute isClosed>
+            <Student />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/student/:id/profile"
+        element={
+          <PrivateRoute isClosed>
+            <PictureEdit />
           </PrivateRoute>
         }
       />

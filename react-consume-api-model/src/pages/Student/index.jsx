@@ -2,19 +2,23 @@ import React, { useEffect, useState } from "react";
 import { Form } from "../../styles/styled";
 import Loading from "../../components/Loading";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { classes } from "../../config/schoolClasses";
 import validateStudent from "../../functions/validadeStudent";
 import axios from "../../services/axios";
 import { get } from "lodash";
 
+import ViewStudent from "../../components/viewStudent/index.jsx";
+
 export default function Student() {
   const { id } = useParams();
+  const location = useLocation();
   const [nome, setNome] = useState("");
   const [turma, setTurma] = useState("");
   const [email, setEmail] = useState("");
   const [idade, setIdade] = useState("");
   const [media, setMedia] = useState("");
+  const [fileUrl, setFileUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -28,6 +32,7 @@ export default function Student() {
         setIdade(data.idade);
         setEmail(data.email);
         setMedia(data.media);
+        setFileUrl(get(data, "Files[0].url", ""));
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -51,7 +56,14 @@ export default function Student() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formErrors = validateStudent({ nome, turma, email, idade, media, id });
+    const formErrors = validateStudent({
+      nome,
+      turma,
+      email,
+      idade,
+      media,
+      id,
+    });
     if (formErrors) return;
 
     setLoading(true);
@@ -87,6 +99,20 @@ export default function Student() {
     return;
   };
 
+  if (location.pathname.includes("/view")) {
+    return (
+      <ViewStudent
+        nome={nome}
+        id={id}
+        turma={turma}
+        idade={idade}
+        email={email}
+        media={media}
+        fileUrl={fileUrl}
+      />
+    );
+  }
+
   return (
     <div className="container" style={{ marginTop: "55px" }}>
       <Loading isLoading={loading} />
@@ -111,18 +137,22 @@ export default function Student() {
           />
         </label>
 
-        <label htmlFor="email">
-          Email:
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            aria-label="email"
-          />
-        </label>
+        {id ? (
+          ""
+        ) : (
+          <label htmlFor="email">
+            Email:
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              aria-label="email"
+            />
+          </label>
+        )}
 
         <label htmlFor="turma">
           Class: {turma && id ? <small>old class: {turma}</small> : ""}

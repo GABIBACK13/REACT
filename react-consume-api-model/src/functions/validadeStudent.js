@@ -51,7 +51,7 @@ function validateTurma(turma, errors) {
 }
 
 function validateEmail(email, errors) {
-  if (!email ||!isEmail(email)) {
+  if (!email || !isEmail(email)) {
     toast.error("Invalid email");
     errors = true;
   }
@@ -59,6 +59,7 @@ function validateEmail(email, errors) {
 }
 
 function validateIdade(idade, errors) {
+  if (typeof idade !== "string") idade = String(idade);
   if (!idade || !isInt(idade) || idade < 12 || idade > 120) {
     toast.error("Age must be an integer between 12 and 120");
     errors = true;
@@ -69,6 +70,7 @@ function validateIdade(idade, errors) {
 }
 
 function validateMedia(media, errors) {
+  if (typeof media !== "string") media = String(media);
   if (!media || !isFloat(media) || media < 0 || media > 10) {
     toast.error("Average must be a number between 0 and 10");
     errors = true;

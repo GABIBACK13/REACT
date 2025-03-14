@@ -72,7 +72,7 @@ export default function StudentsTable({ aluno }) {
           {students.map((student) => (
             <Tr key={student.id}>
               <Td className="FaBorder">
-                <Link to={`/student/${student.id}`}>
+                <Link to={`/student/view/${student.id}`}>
                   {get(student, "Files[0].url", false) ? (
                     <Img
                       crossOrigin="anonymous"
